@@ -3,34 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <title>A* Pathfinding Visualizer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>A* Pathfinding Visualizer</h1>
-    <div class="controls">
-      <button id="mode-start">Set Start</button>
-      <button id="mode-goal">Set Goal</button>
-      <button id="mode-obstacle">Draw Obstacles</button>
-      <button id="run">Run (Enter)</button>
-      <button id="reset">Reset (R)</button>
-    </div>
-  </header>
 
-  <main>
-    <canvas id="gridCanvas" width="750" height="750" tabindex="0"></canvas>
-    <div class="legend">
-      <div><span class="box start"></span>Start</div>
-      <div><span class="box goal"></span>Goal</div>
-      <div><span class="box obs"></span>Obstacle</div>
-      <div><span class="box open"></span>Open set</div>
-      <div><span class="box closed"></span>Closed set</div>
-      <div><span class="box path"></span>Path</div>
-    </div>
-    <p class="hint">Click to place. For obstacles: hold mouse and drag. Press Enter to run, R to reset.</p>
-  </main>
+<header>
+  <h1>A* Pathfinding Visualizer</h1>
+  <p class="subtitle">
+    Place start, goal, and obstacles. Run the algorithm to find the shortest path.
+  </p>
 
-  <script src="app.js"></script>
+  <div class="controls">
+    <button id="mode-start">Start</button>
+    <button id="mode-goal">Goal</button>
+    <button id="mode-obstacle">Obstacle</button>
+    <button id="run" class="primary">Run</button>
+    <button id="reset">Reset</button>
+  </div>
+</header>
+
+<main>
+  <canvas id="gridCanvas" width="750" height="750" tabindex="0"></canvas>
+
+  <div class="legend">
+    <h3>Legend</h3>
+    <div><span class="box start"></span>Start</div>
+    <div><span class="box goal"></span>Goal</div>
+    <div><span class="box obs"></span>Obstacle</div>
+    <div><span class="box open"></span>Open Set</div>
+    <div><span class="box closed"></span>Closed Set</div>
+    <div><span class="box path"></span>Path</div>
+  </div>
+</main>
+
+<p class="hint">
+  Click to place nodes. Drag to draw obstacles. Press <b>Enter</b> to run, <b>R</b> to reset.
+</p>
+
+<script src="app.js"></script>
 </body>
 </html>
