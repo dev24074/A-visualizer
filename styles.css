@@ -1,80 +1,62 @@
-:root {
-  --bg: #f6f8fa;
-  --line: #d7d7d7;
-  --text: #0d1721;
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  text-align: center;
+  margin: 0;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,Segoe UI,Roboto,Arial;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-  align-items:center;
+
+header {
+  padding: 16px;
 }
-header{
-  width:100%;
-  max-width:1000px;
-  padding:16px;
-  text-align:center;
+
+.subtitle {
+  font-size: 14px;
+  color: #555;
 }
-.controls{
-  margin-top:8px;
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
+
+.controls {
+  margin-top: 10px;
 }
-button{
-  padding:8px 12px;
-  border-radius:6px;
-  border:1px solid #cfcfcf;
-  background:white;
-  cursor:pointer;
-}
-main{
-  width:100%;
-  max-width:1000px;
-  padding:8px;
-  display:flex;
-  gap:16px;
-  align-items:flex-start;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-canvas{
+
+button {
+  padding: 8px 14px;
+  margin: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   background: white;
-  border:1px solid #cfcfcf;
-  box-shadow: 0 2px 6px rgba(10,10,10,0.04);
-  touch-action: none;
+  cursor: pointer;
 }
-.legend{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  font-size:14px;
-  align-self:flex-start;
+
+button.primary {
+  background: #2563eb;
+  color: white;
 }
-.box{
-  display:inline-block;
-  width:18px;
-  height:18px;
-  margin-right:8px;
-  vertical-align:middle;
-  border:1px solid #bbb;
+
+main {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
-.start{background:green}
-.goal{background:red}
-.obs{background:black}
-.open{background:#90caf9}
-.closed{background:#b3e5fc}
-.path{background:gold}
-.hint{
-  width:100%;
-  text-align:center;
-  margin-top:12px;
-  color:#444;
-  font-size:13px;
+
+canvas {
+  background: white;
+  border: 1px solid #ccc;
 }
+
+.legend {
+  text-align: left;
+  font-size: 14px;
+}
+
+.box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+}
+
+.start { background: green; }
+.goal { background: red; }
+.wall { background: black; }
+.path { background: gold; }
