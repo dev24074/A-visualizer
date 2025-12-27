@@ -10,6 +10,26 @@ let start = null;
 let goal = null;
 let walls = new Set();
 
+class Node {
+  constructor(r, c, g = Infinity, h = 0, parent = null) {
+    this.r = r;
+    this.c = c;
+    this.g = g;
+    this.h = h;
+    this.f = g + h;
+    this.parent = parent;
+  }
+}
+
+function heuristic(a, b) {
+  return Math.abs(a.r - b.r) + Math.abs(a.c - b.c); // Manhattan distance
+}
+
+function drawCell(r, c, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(c * size, r * size, size, size);
+}
+
 function drawGrid() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -19,26 +39,15 @@ function drawGrid() {
       ctx.strokeRect(c * size, r * size, size, size);
 
       const key = `${r},${c}`;
-
-      if (start && start.r === r && start.c === c) {
-        ctx.fillStyle = "green";
-        ctx.fillRect(c * size, r * size, size, size);
-      }
-
-      if (goal && goal.r === r && goal.c === c) {
-        ctx.fillStyle = "red";
-        ctx.fillRect(c * size, r * size, size, size);
-      }
-
-      if (walls.has(key)) {
-        ctx.fillStyle = "black";
-        ctx.fillRect(c * size, r * size, size, size);
-      }
+      if (walls.has(key)) drawCell(r, c, "black");
     }
   }
+
+  if (start) drawCell(start.r, start.c, "green");
+  if (goal) drawCell(goal.r, goal.c, "red");
 }
 
-canvas.addEventListener("click", (e) => {
+canvas.addEventListener("click", e => {
   const rect = canvas.getBoundingClientRect();
   const c = Math.floor((e.clientX - rect.left) / size);
   const r = Math.floor((e.clientY - rect.top) / size);
@@ -65,10 +74,59 @@ document.getElementById("reset").onclick = () => {
 
 document.getElementById("run").onclick = () => {
   if (!start || !goal) {
-    alert("Please set Start and Goal");
+    alert("Set Start and Goal first");
     return;
   }
-  alert("A* algorithm runs here (logic can be added)");
+  aStar();
 };
 
+function aStar() {
+  let open = [];
+  let closed = new Set();
+
+  const startNode = new Node(start.r, start.c, 0, heuristic(start, goal));
+  open.push(startNode);
+
+  while (open.length > 0) {
+    open.sort((a, b) => a.f - b.f);
+    const current = open.shift();
+
+    const key = `${current.r},${current.c}`;
+    if (closed.has(key)) continue;
+    closed.add(key);
+
+    drawCell(current.r, current.c, "#93c5fd");
+
+    if (current.r === goal.r && current.c === goal.c) {
+      drawPath(current);
+      return;
+    }
+
+    const neighbors = [
+      [1, 0], [-1, 0], [0, 1], [0, -1]
+    ];
+
+    for (let [dr, dc] of neighbors) {
+      const nr = current.r + dr;
+      const nc = current.c + dc;
+      const nkey = `${nr},${nc}`;
+
+      if (nr < 0 || nc < 0 || nr >= rows || nc >= cols) continue;
+      if (walls.has(nkey) || closed.has(nkey)) continue;
+
+      const g = current.g + 1;
+      const h = heuristic({ r: nr, c: nc }, goal);
+      open.push(new Node(nr, nc, g, h, current));
+    }
+  }
+
+  alert("No path found");
+}
+
+function drawPath(node) {
+  while (node.parent) {
+    drawCell(node.r, node.c, "gold");
+    node = node.parent;
+  }
+}
 drawGrid();
