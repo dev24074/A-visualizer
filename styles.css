@@ -60,3 +60,11 @@ canvas {
 .goal { background: red; }
 .wall { background: black; }
 .path { background: gold; }
+.speed-control {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.speed-control input {
+  vertical-align: middle;
+}
